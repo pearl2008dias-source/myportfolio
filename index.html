@@ -1,0 +1,854 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexus | Business Workspace</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+body {
+    background: #f7f5ff;
+    color: #272344;
+}
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 235px;
+    background: #211d3d;
+    color: white;
+    padding: 30px 18px;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.logo span {
+    color: #b9a3ff;
+}
+
+.tagline {
+    color: #aaa5c5;
+    font-size: 12px;
+    margin-bottom: 40px;
+}
+
+.nav-item {
+    display: block;
+    width: 100%;
+    padding: 13px;
+    margin: 7px 0;
+    border: none;
+    border-radius: 12px;
+    color: #d6d1eb;
+    background: transparent;
+    text-align: left;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.nav-item:hover,
+.nav-item.active {
+    background: #423866;
+    color: white;
+}
+
+main {
+    flex: 1;
+    padding: 35px;
+    min-width: 0;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.topbar p {
+    color: #85809e;
+    margin-top: 7px;
+}
+
+.avatar {
+    background: #e6dcff;
+    padding: 13px;
+    border-radius: 50%;
+}
+
+.hero {
+    background: linear-gradient(120deg, #7661cf, #bd8eea, #f2a7bd);
+    padding: 35px;
+    border-radius: 22px;
+    color: white;
+    margin-bottom: 28px;
+    box-shadow: 0 12px 30px #a996d52a;
+}
+
+.hero small {
+    letter-spacing: 2px;
+    font-weight: 600;
+}
+
+.hero h2 {
+    font-size: 30px;
+    margin: 15px 0 10px;
+}
+
+.hero p {
+    line-height: 1.6;
+    max-width: 600px;
+}
+
+.command {
+    display: flex;
+    gap: 10px;
+    margin-top: 22px;
+}
+
+.command input {
+    flex: 1;
+    min-width: 0;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+}
+
+button {
+    cursor: pointer;
+}
+
+.primary {
+    background: #292044;
+    color: white;
+    border: none;
+    padding: 13px 19px;
+    border-radius: 10px;
+}
+
+.primary:hover {
+    background: #443466;
+}
+
+.section-title {
+    margin: 27px 0 17px;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.card {
+    background: white;
+    border: 1px solid #eee9fa;
+    padding: 22px;
+    border-radius: 17px;
+    box-shadow: 0 5px 20px #30205b08;
+}
+
+.card p {
+    color: #89839e;
+    font-size: 13px;
+}
+
+.number {
+    font-size: 28px;
+    font-weight: 750;
+    margin: 12px 0 8px;
+}
+
+.change {
+    color: #269c78;
+    font-size: 12px;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 18px;
+    margin-top: 20px;
+}
+
+.activity {
+    padding: 16px 0;
+    border-bottom: 1px solid #eeeaf5;
+}
+
+.activity:last-child {
+    border-bottom: none;
+}
+
+.activity strong {
+    font-size: 14px;
+}
+
+.activity p {
+    margin-top: 6px;
+    font-size: 12px;
+}
+
+.badge {
+    display: inline-block;
+    background: #eee8ff;
+    color: #7555ba;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    margin-top: 9px;
+}
+
+.progress {
+    height: 8px;
+    background: #eeeaf7;
+    border-radius: 10px;
+    margin: 12px 0 20px;
+    overflow: hidden;
+}
+
+.progress div {
+    height: 100%;
+    background: linear-gradient(90deg, #8571dc, #e6a1cc);
+    border-radius: 10px;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+.feature-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.feature {
+    background: white;
+    padding: 24px;
+    border: 1px solid #eee9fa;
+    border-radius: 16px;
+}
+
+.feature h3 {
+    margin-bottom: 10px;
+}
+
+.feature p {
+    color: #85809e;
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+.form-row {
+    margin: 15px 0;
+}
+
+.form-row label {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 14px;
+}
+
+.form-row input,
+.form-row select,
+.form-row textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd6ef;
+    border-radius: 10px;
+    background: white;
+}
+
+.contact-row {
+    padding: 15px 0;
+    border-bottom: 1px solid #eeeaf5;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+@media (max-width: 900px) {
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .layout {
+        display: block;
+    }
+
+    .sidebar {
+        width: 100%;
+        padding: 18px;
+    }
+
+    .tagline {
+        margin-bottom: 15px;
+    }
+
+    .nav-item {
+        display: inline-block;
+        width: auto;
+        padding: 10px;
+    }
+
+    main {
+        padding: 20px;
+    }
+
+    .hero {
+        padding: 24px;
+    }
+
+    .hero h2 {
+        font-size: 24px;
+    }
+
+    .command {
+        flex-direction: column;
+    }
+
+    .stats,
+    .feature-list {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+<div class="layout">
+
+<aside class="sidebar">
+    <div class="logo">NEX<span>US</span></div>
+    <div class="tagline">YOUR BUSINESS, IN SYNC ✦</div>
+
+    <button class="nav-item active" onclick="showPage('overview', this)">⌂ &nbsp; Overview</button>
+    <button class="nav-item" onclick="showPage('websites', this)">✧ &nbsp; Website Studio</button>
+    <button class="nav-item" onclick="showPage('crm', this)">♡ &nbsp; CRM & Contacts</button>
+    <button class="nav-item" onclick="showPage('marketing', this)">✉ &nbsp; Marketing</button>
+    <button class="nav-item" onclick="showPage('webinars', this)">◷ &nbsp; Webinars</button>
+    <button class="nav-item" onclick="showPage('subscriptions', this)">◇ &nbsp; Subscriptions</button>
+    <button class="nav-item" onclick="showPage('ai', this)">✦ &nbsp; AI Assistant</button>
+    <button class="nav-item" onclick="showPage('analytics', this)">▥ &nbsp; Analytics</button>
+</aside>
+
+<main>
+    <div class="topbar">
+        <div>
+            <h2 id="pageHeading">Your workspace ✨</h2>
+            <p id="pageSubheading">Everything you need, all in one place.</p>
+        </div>
+        <div class="avatar">👩🏻‍💻</div>
+    </div>
+
+    <section id="overview" class="page active">
+        <div class="hero">
+            <small>✦ YOUR BUSINESS, IN SYNC</small>
+            <h2>Big ideas. One workspace.</h2>
+            <p>Manage your customers, build websites, plan campaigns and let AI help you do more.</p>
+            <div class="command">
+                <input id="quickCommand" placeholder="Ask Nexus what you want to do...">
+                <button class="primary" onclick="runCommand()">Ask Nexus ↗</button>
+            </div>
+            <p id="commandResult" style="margin-top:14px"></p>
+        </div>
+
+        <h3 class="section-title">Your business at a glance</h3>
+        <div class="stats">
+            <div class="card">
+                <p>Total contacts</p>
+                <div class="number" id="contactCount">128</div>
+                <span class="change">↗ Growing your network</span>
+            </div>
+            <div class="card">
+                <p>Website visitors</p>
+                <div class="number">2,480</div>
+                <span class="change">↗ Sample metric</span>
+            </div>
+            <div class="card">
+                <p>Active campaigns</p>
+                <div class="number" id="campaignCount">4</div>
+                <span class="change">✦ Ready to grow</span>
+            </div>
+            <div class="card">
+                <p>Webinar registrations</p>
+                <div class="number" id="webinarCount">86</div>
+                <span class="change">✦ Sample metric</span>
+            </div>
+        </div>
+
+        <div class="content-grid">
+            <div class="card">
+                <h3>Recent activity</h3>
+                <div id="activityList">
+                    <div class="activity">
+                        <strong>✨ Welcome to Nexus</strong>
+                        <p>Your business workspace is ready to explore.</p>
+                    </div>
+                    <div class="activity">
+                        <strong>📬 Marketing campaign</strong>
+                        <p>Spring launch campaign · Sample data</p>
+                    </div>
+                    <div class="activity">
+                        <strong>🎤 Upcoming webinar</strong>
+                        <p>Creative Business Workshop · Sample data</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Workspace progress</h3>
+                <p style="margin-top:20px">Website Studio</p>
+                <div class="progress"><div style="width:75%"></div></div>
+                <p>Marketing</p>
+                <div class="progress"><div style="width:60%"></div></div>
+                <p>Customer relationships</p>
+                <div class="progress"><div style="width:85%"></div></div>
+                <span class="badge">Demo workspace</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="websites" class="page">
+        <h2>Website Studio ✧</h2>
+        <p style="margin-top:10px;color:#85809e">Create a simple website preview for your business.</p>
+        <div class="card" style="margin-top:22px">
+            <div class="form-row">
+                <label>Website name</label>
+                <input id="siteName" value="My Creative Studio">
+            </div>
+            <div class="form-row">
+                <label>Headline</label>
+                <input id="siteHeadline" value="Ideas made beautiful.">
+            </div>
+            <div class="form-row">
+                <label>Short description</label>
+                <textarea id="siteDescription">We help ambitious brands bring their ideas to life.</textarea>
+            </div>
+            <button class="primary" onclick="previewWebsite()">Update preview</button>
+        </div>
+        <div class="card" id="websitePreview" style="margin-top:18px;text-align:center;padding:45px;background:linear-gradient(130deg,#eee6ff,#ffe8f0)">
+            <h2 id="previewName">My Creative Studio</h2>
+            <h3 id="previewHeadline" style="margin:20px">Ideas made beautiful.</h3>
+            <p id="previewDescription">We help ambitious brands bring their ideas to life.</p>
+            <span class="badge">Website preview · Not published</span>
+        </div>
+    </section>
+
+    <section id="crm" class="page">
+        <h2>CRM & Contacts ♡</h2>
+        <p style="margin:10px 0 20px;color:#85809e">Keep your important relationships organised.</p>
+        <div class="card">
+            <input id="contactSearch" placeholder="Search contacts..." oninput="renderContacts()" style="width:100%;padding:12px;border:1px solid #ddd6ef;border-radius:10px">
+            <div class="form-row" style="margin-top:18px">
+                <label>Contact name</label>
+                <input id="newContactName" placeholder="e.g. Aanya Sharma">
+            </div>
+            <div class="form-row">
+                <label>Email</label>
+                <input id="newContactEmail" type="email" placeholder="aanya@example.com">
+            </div>
+            <button class="primary" onclick="addContact()">+ Add contact</button>
+            <div id="contactList" style="margin-top:20px"></div>
+        </div>
+    </section>
+
+    <section id="marketing" class="page">
+        <h2>Marketing Studio ✉</h2>
+        <p style="margin:10px 0 20px;color:#85809e">Create and organise your next campaign.</p>
+        <div class="card">
+            <div class="form-row">
+                <label>Campaign name</label>
+                <input id="newCampaign" placeholder="e.g. Product launch">
+            </div>
+            <div class="form-row">
+                <label>Campaign message</label>
+                <textarea id="campaignMessage" placeholder="What would you like to tell your audience?"></textarea>
+            </div>
+            <button class="primary" onclick="addCampaign()">Save campaign</button>
+            <div id="campaignList" style="margin-top:20px"></div>
+        </div>
+    </section>
+
+    <section id="webinars" class="page">
+        <h2>Webinars ◷</h2>
+        <p style="margin:10px 0 20px;color:#85809e">Bring your community together.</p>
+        <div class="card">
+            <div class="form-row">
+                <label>Event name</label>
+                <input id="newWebinar" placeholder="e.g. Building with AI">
+            </div>
+            <div class="form-row">
+                <label>Event date</label>
+                <input id="webinarDate" type="date">
+            </div>
+            <button class="primary" onclick="addWebinar()">Create webinar</button>
+            <div id="webinarList" style="margin-top:20px"></div>
+        </div>
+    </section>
+
+    <section id="subscriptions" class="page">
+        <h2>Subscriptions ◇</h2>
+        <p style="margin:10px 0 20px;color:#85809e">Choose a plan for your business.</p>
+        <div class="feature-list">
+            <div class="feature">
+                <h3>🌱 Starter</h3>
+                <div class="number">₹0</div>
+                <p>Explore your workspace and organise your business.</p>
+                <button class="primary" style="margin-top:18px" onclick="choosePlan('Starter')">Choose Starter</button>
+            </div>
+            <div class="feature">
+                <h3>✨ Pro</h3>
+                <div class="number">₹999<span style="font-size:13px">/month</span></div>
+                <p>For growing teams that want more powerful workflows.</p>
+                <button class="primary" style="margin-top:18px" onclick="choosePlan('Pro')">Choose Pro</button>
+            </div>
+        </div>
+        <div class="card" style="margin-top:18px">
+            <p id="planMessage">Current demo plan: Starter</p>
+            <span class="badge">Demo pricing · No real payments</span>
+        </div>
+    </section>
+
+    <section id="ai" class="page">
+        <h2>Meet Nexus AI ✦</h2>
+        <p style="margin:10px 0 20px;color:#85809e">Your business assistant, ready to help.</p>
+        <div class="card">
+            <p>Try a command below. This starter version uses demo rules, not a live AI model.</p>
+            <div class="form-row">
+                <label>Your instruction</label>
+                <textarea id="aiCommand" placeholder="e.g. Prepare a campaign for our new webinar"></textarea>
+            </div>
+            <button class="primary" onclick="runAI()">Generate workflow</button>
+            <div id="aiResult" style="margin-top:22px"></div>
+        </div>
+    </section>
+
+    <section id="analytics" class="page">
+        <h2>Analytics ▥</h2>
+        <p style="margin:10px 0 20px;color:#85809e">A quick look at your sample business data.</p>
+        <div class="stats">
+            <div class="card"><p>Contacts</p><div class="number" id="analyticsContacts">128</div></div>
+            <div class="card"><p>Campaigns</p><div class="number" id="analyticsCampaigns">4</div></div>
+            <div class="card"><p>Webinars</p><div class="number" id="analyticsWebinars">1</div></div>
+            <div class="card"><p>Workspace</p><div class="number">Active</div></div>
+        </div>
+        <div class="card" style="margin-top:20px">
+            <h3>Contacts added to your workspace</h3>
+            <div id="analyticsBars" style="display:flex;align-items:end;gap:15px;height:180px;margin-top:20px">
+                <div style="flex:1;background:#a998ed;height:35%;border-radius:8px 8px 0 0"></div>
+                <div style="flex:1;background:#b8a4ef;height:55%;border-radius:8px 8px 0 0"></div>
+                <div style="flex:1;background:#c6a0e8;height:45%;border-radius:8px 8px 0 0"></div>
+                <div style="flex:1;background:#d89fd8;height:75%;border-radius:8px 8px 0 0"></div>
+                <div style="flex:1;background:#edacd0;height:95%;border-radius:8px 8px 0 0"></div>
+            </div>
+            <p style="margin-top:12px">Illustrative chart · Sample data</p>
+        </div>
+    </section>
+
+</main>
+</div>
+
+<script>
+const contacts = [
+    {name: "Aarav Mehta", email: "aarav@example.com"},
+    {name: "Mira Shah", email: "mira@example.com"},
+    {name: "Riya Kapoor", email: "riya@example.com"}
+];
+
+const campaigns = [];
+const webinars = [];
+
+function showPage(pageId, button) {
+    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+    document.getElementById(pageId).classList.add("active");
+
+    document.querySelectorAll(".nav-item").forEach(b => b.classList.remove("active"));
+    button.classList.add("active");
+
+    const headings = {
+        overview: ["Your workspace ✨", "Everything you need, all in one place."],
+        websites: ["Website Studio ✧", "Bring your ideas to life."],
+        crm: ["CRM & Contacts ♡", "Build better customer relationships."],
+        marketing: ["Marketing Studio ✉", "Share your next big idea."],
+        webinars: ["Webinars ◷", "Bring your community together."],
+        subscriptions: ["Subscriptions ◇", "Simple plans for growing businesses."],
+        ai: ["Nexus AI ✦", "Your intelligent business assistant."],
+        analytics: ["Analytics ▥", "Understand your business at a glance."]
+    };
+
+    document.getElementById("pageHeading").textContent = headings[pageId][0];
+    document.getElementById("pageSubheading").textContent = headings[pageId][1];
+}
+
+function addActivity(title, description) {
+    const list = document.getElementById("activityList");
+    const item = document.createElement("div");
+    item.className = "activity";
+
+    const strong = document.createElement("strong");
+    strong.textContent = title;
+
+    const p = document.createElement("p");
+    p.textContent = description;
+
+    item.append(strong, p);
+    list.prepend(item);
+}
+
+function updateStats() {
+    document.getElementById("contactCount").textContent = 128 + contacts.length - 3;
+    document.getElementById("campaignCount").textContent = 4 + campaigns.length;
+    document.getElementById("webinarCount").textContent = 86 + webinars.length;
+
+    document.getElementById("analyticsContacts").textContent = 128 + contacts.length - 3;
+    document.getElementById("analyticsCampaigns").textContent = 4 + campaigns.length;
+    document.getElementById("analyticsWebinars").textContent = 1 + webinars.length;
+}
+
+function renderContacts() {
+    const query = document.getElementById("contactSearch").value.toLowerCase();
+    const list = document.getElementById("contactList");
+    list.replaceChildren();
+
+    contacts.filter(c => (c.name + " " + c.email).toLowerCase().includes(query))
+    .forEach((contact, index) => {
+        const row = document.createElement("div");
+        row.className = "contact-row";
+
+        const info = document.createElement("div");
+        const name = document.createElement("strong");
+        name.textContent = contact.name;
+        const email = document.createElement("p");
+        email.style.cssText = "font-size:12px;color:#85809e;margin-top:5px";
+        email.textContent = contact.email;
+        info.append(name, email);
+
+        const remove = document.createElement("button");
+        remove.textContent = "Remove";
+        remove.style.cssText = "border:0;background:#fff0f2;color:#bd5575;border-radius:8px;padding:8px";
+        remove.onclick = () => {
+            contacts.splice(contacts.indexOf(contact), 1);
+            renderContacts();
+            updateStats();
+            addActivity("Contact removed", contact.name + " was removed from demo contacts.");
+        };
+
+        row.append(info, remove);
+        list.append(row);
+    });
+}
+
+function addContact() {
+    const nameInput = document.getElementById("newContactName");
+    const emailInput = document.getElementById("newContactEmail");
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
+
+    if (!name || !email || !emailInput.checkValidity()) {
+        alert("Please enter a contact name and a valid email.");
+        return;
+    }
+
+    contacts.push({name, email});
+    nameInput.value = "";
+    emailInput.value = "";
+    renderContacts();
+    updateStats();
+    addActivity("New contact added", name + " was added to demo contacts.");
+}
+
+function addCampaign() {
+    const nameInput = document.getElementById("newCampaign");
+    const messageInput = document.getElementById("campaignMessage");
+    const name = nameInput.value.trim();
+    const message = messageInput.value.trim();
+
+    if (!name || !message) {
+        alert("Please enter a campaign name and message.");
+        return;
+    }
+
+    campaigns.push({name, message});
+    renderCampaigns();
+    nameInput.value = "";
+    messageInput.value = "";
+    updateStats();
+    addActivity("Campaign saved", name + " was saved as a demo campaign.");
+}
+
+function renderCampaigns() {
+    const list = document.getElementById("campaignList");
+    list.replaceChildren();
+
+    campaigns.forEach(campaign => {
+        const card = document.createElement("div");
+        card.className = "activity";
+        const title = document.createElement("strong");
+        title.textContent = "✉ " + campaign.name;
+        const desc = document.createElement("p");
+        desc.textContent = campaign.message;
+        const badge = document.createElement("span");
+        badge.className = "badge";
+        badge.textContent = "Draft";
+        card.append(title, desc, badge);
+        list.append(card);
+    });
+}
+
+function addWebinar() {
+    const nameInput = document.getElementById("newWebinar");
+    const dateInput = document.getElementById("webinarDate");
+    const name = nameInput.value.trim();
+    const date = dateInput.value;
+
+    if (!name || !date) {
+        alert("Please enter an event name and date.");
+        return;
+    }
+
+    webinars.push({name, date});
+    renderWebinars();
+    nameInput.value = "";
+    dateInput.value = "";
+    updateStats();
+    addActivity("Webinar created", name + " · " + date);
+}
+
+function renderWebinars() {
+    const list = document.getElementById("webinarList");
+    list.replaceChildren();
+
+    webinars.forEach(webinar => {
+        const card = document.createElement("div");
+        card.className = "activity";
+        const title = document.createElement("strong");
+        title.textContent = "🎤 " + webinar.name;
+        const date = document.createElement("p");
+        date.textContent = "Date: " + webinar.date;
+        const badge = document.createElement("span");
+        badge.className = "badge";
+        badge.textContent = "Demo event";
+        card.append(title, date, badge);
+        list.append(card);
+    });
+}
+
+function previewWebsite() {
+    const name = document.getElementById("siteName").value.trim();
+    const headline = document.getElementById("siteHeadline").value.trim();
+    const description = document.getElementById("siteDescription").value.trim();
+
+    document.getElementById("previewName").textContent = name || "My Website";
+    document.getElementById("previewHeadline").textContent = headline || "Welcome!";
+    document.getElementById("previewDescription").textContent = description || "Your description goes here.";
+
+    addActivity("Website preview updated", name || "My Website");
+}
+
+function choosePlan(plan) {
+    document.getElementById("planMessage").textContent =
+        "Selected demo plan: " + plan + ". No payment was taken.";
+    addActivity("Plan selected", plan + " plan selected in demo mode.");
+}
+
+function runCommand() {
+    const command = document.getElementById("quickCommand").value.trim();
+    if (!command) {
+        document.getElementById("commandResult").textContent =
+            "Try typing a request first!";
+        return;
+    }
+
+    document.getElementById("commandResult").textContent =
+        "Your request is ready to explore in Nexus AI. Open the AI Assistant for a demo workflow.";
+    document.getElementById("aiCommand").value = command;
+    addActivity("AI command entered", command);
+}
+
+function runAI() {
+    const command = document.getElementById("aiCommand").value.trim();
+    const result = document.getElementById("aiResult");
+    result.replaceChildren();
+
+    if (!command) {
+        result.textContent = "Enter an instruction to get started.";
+        return;
+    }
+
+    const title = document.createElement("h3");
+    title.textContent = "Suggested workflow";
+
+    const note = document.createElement("p");
+    note.style.cssText = "margin:10px 0;color:#85809e";
+    note.textContent = "Demo plan based on your request: " + command;
+
+    const steps = [
+        "Review the relevant business records",
+        "Prepare the requested content or changes",
+        "Ask for approval before sensitive actions",
+        "Show the outcome and update the activity feed"
+    ];
+
+    const list = document.createElement("ol");
+    list.style.cssText = "padding-left:22px;line-height:2";
+
+    steps.forEach(step => {
+        const li = document.createElement("li");
+        li.textContent = step;
+        list.append(li);
+    });
+
+    const badge = document.createElement("span");
+    badge.className = "badge";
+    badge.textContent = "Suggested plan · Demo mode";
+
+    const approve = document.createElement("button");
+    approve.className = "primary";
+    approve.style.marginTop = "18px";
+    approve.textContent = "Run demo workflow";
+    approve.onclick = () => {
+        addActivity("Demo workflow completed", "A sample workflow was run for: " + command);
+        approve.textContent = "Demo workflow recorded ✓";
+        approve.disabled = true;
+        approve.style.opacity = "0.7";
+    };
+
+    result.append(title, note, list, badge, document.createElement("br"), approve);
+}
+
+renderContacts();
+updateStats();
+</script>
+</body>
+</html>
